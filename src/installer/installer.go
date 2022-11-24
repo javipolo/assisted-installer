@@ -93,11 +93,13 @@ func (i *installer) InstallNode() error {
 
 	i.UpdateHostInstallProgress(models.HostStageStartingInstallation, i.Config.Role)
 	i.Config.Device = i.ops.EvaluateDiskSymlink(i.Config.Device)
-	err := i.cleanupInstallDevice()
-	if err != nil {
-		i.log.Errorf("failed to prepare install device %s, err %s", i.Device, err)
-		return err
-	}
+	// JAVI TODO: Remove all related code
+	// err := i.cleanupInstallDevice()
+	// if err != nil {
+	// 	i.log.Errorf("failed to prepare install device %s, err %s", i.Device, err)
+	// 	return err
+	// }
+	var err error
 
 	if err = i.ops.Mkdir(InstallDir); err != nil {
 		i.log.Errorf("Failed to create install dir: %s", err)
