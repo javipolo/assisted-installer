@@ -692,7 +692,8 @@ func (i *installer) cleanupInstallDevice() error {
 		i.log.Infof("Finished cleaning up device %s", i.Device)
 	}
 
-	return i.ops.Wipefs(i.Device)
+	return nil
+	// return i.ops.Wipefs(i.Device)
 }
 
 func (i *installer) removeVolumeGroupsFromDevice(vgNames []string, device string) error {
@@ -710,19 +711,24 @@ func (i *installer) removeVolumeGroupsFromDevice(vgNames []string, device string
 }
 
 func (i *installer) cleanupDevice(device string) error {
-	vgNames, err := i.ops.GetVolumeGroupsByDisk(device)
-	if err != nil {
-		return err
-	}
+	// vgNames, err := i.ops.GetVolumeGroupsByDisk(device)
+	// if err != nil {
+	// 	return err
+	// }
 
-	if len(vgNames) > 0 {
-		err = i.removeVolumeGroupsFromDevice(vgNames, device)
-		if err != nil {
-			return err
-		}
-	}
+	// if len(vgNames) > 0 {
+	// 	err = i.removeVolumeGroupsFromDevice(vgNames, device)
+	// 	if err != nil {
+	// 		return err
+	// 	}
+	// }
 
-	return i.ops.RemoveAllPVsOnDevice(device)
+	// err = i.ops.RemoveAllPVsOnDevice(device)
+	// if err != nil {
+	// 	return err
+	// }
+
+	return i.ops.RemoveAllDMDevicesOnDisk(device)
 }
 
 func (i *installer) verifyHostCanMoveToConfigurationStatus(inventoryHostsMapWithIp map[string]inventory_client.HostData) {
